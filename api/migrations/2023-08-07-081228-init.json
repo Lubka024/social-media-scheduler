@@ -1,0 +1,313 @@
+{
+	"formatVersion": 4,
+	"modifications": [
+		{
+			"modification": "createEnum",
+			"enumName": "PostState",
+			"values": [
+				"draft",
+				"pendingApproval",
+				"approved"
+			]
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "SocialMediaPost",
+				"unique": [],
+				"indexes": [],
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "social_media_post",
+				"eventLog": {
+					"enabled": true
+				},
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"type": "Uuid",
+						"columnType": "uuid",
+						"nullable": false
+					}
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Platform",
+				"unique": [],
+				"indexes": [],
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "platform",
+				"eventLog": {
+					"enabled": true
+				},
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"type": "Uuid",
+						"columnType": "uuid",
+						"nullable": false
+					}
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "Media",
+				"unique": [],
+				"indexes": [],
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "media",
+				"eventLog": {
+					"enabled": true
+				},
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"type": "Uuid",
+						"columnType": "uuid",
+						"nullable": false
+					}
+				}
+			}
+		},
+		{
+			"modification": "createEntity",
+			"entity": {
+				"name": "File",
+				"unique": [],
+				"indexes": [],
+				"primary": "id",
+				"primaryColumn": "id",
+				"tableName": "file",
+				"eventLog": {
+					"enabled": true
+				},
+				"fields": {
+					"id": {
+						"name": "id",
+						"columnName": "id",
+						"type": "Uuid",
+						"columnType": "uuid",
+						"nullable": false
+					}
+				}
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "SocialMediaPost",
+			"field": {
+				"name": "title",
+				"columnName": "title",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "SocialMediaPost",
+			"field": {
+				"name": "content",
+				"columnName": "content",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "SocialMediaPost",
+			"field": {
+				"name": "state",
+				"columnName": "state",
+				"type": "Enum",
+				"nullable": true,
+				"columnType": "PostState"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "SocialMediaPost",
+			"field": {
+				"name": "scheduledDate",
+				"columnName": "scheduled_date",
+				"type": "DateTime",
+				"nullable": true,
+				"columnType": "timestamptz"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Platform",
+			"field": {
+				"name": "name",
+				"columnName": "name",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Media",
+			"field": {
+				"name": "title",
+				"columnName": "title",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "Media",
+			"field": {
+				"name": "description",
+				"columnName": "description",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "File",
+			"field": {
+				"name": "url",
+				"columnName": "url",
+				"type": "String",
+				"nullable": false,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "File",
+			"field": {
+				"name": "size",
+				"columnName": "size",
+				"type": "Integer",
+				"nullable": true,
+				"columnType": "integer"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "File",
+			"field": {
+				"name": "type",
+				"columnName": "type",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "File",
+			"field": {
+				"name": "name",
+				"columnName": "name",
+				"type": "String",
+				"nullable": true,
+				"columnType": "text"
+			}
+		},
+		{
+			"modification": "createColumn",
+			"entityName": "File",
+			"field": {
+				"name": "createdAt",
+				"columnName": "created_at",
+				"type": "DateTime",
+				"nullable": false,
+				"columnType": "timestamptz",
+				"default": "now"
+			},
+			"fillValue": "now"
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "SocialMediaPost",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "platform",
+				"target": "Platform",
+				"inversedBy": "posts",
+				"joiningColumn": {
+					"columnName": "platform_id",
+					"onDelete": "restrict"
+				},
+				"nullable": true
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "posts",
+				"target": "SocialMediaPost",
+				"ownedBy": "platform"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "Media",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "file",
+				"target": "File",
+				"inversedBy": "mediaFiles",
+				"nullable": true,
+				"joiningColumn": {
+					"columnName": "file_id",
+					"onDelete": "set null"
+				}
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "mediaFiles",
+				"target": "Media",
+				"ownedBy": "file"
+			}
+		},
+		{
+			"modification": "createRelation",
+			"entityName": "Media",
+			"owningSide": {
+				"type": "ManyHasOne",
+				"name": "post",
+				"target": "SocialMediaPost",
+				"inversedBy": "media",
+				"joiningColumn": {
+					"columnName": "post_id",
+					"onDelete": "restrict"
+				},
+				"nullable": true
+			},
+			"inverseSide": {
+				"type": "OneHasMany",
+				"name": "media",
+				"target": "Media",
+				"ownedBy": "post"
+			}
+		},
+		{
+			"modification": "createUniqueConstraint",
+			"entityName": "Platform",
+			"unique": {
+				"fields": [
+					"name"
+				],
+				"name": "unique_Platform_name"
+			}
+		}
+	]
+}
